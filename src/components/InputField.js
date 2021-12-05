@@ -5,6 +5,26 @@ import { useState } from 'react';
 const InputField = () => {
   const [date, setDate] = useState('');
   const [number, setNumber] = useState('');
+  const [message, SetMessage] = useState('');
+  const [status, SetStatus] = useState(false);
+
+  const checkLucky = (birthday, luckyNumber) => {
+    birthday = Number(birthday.split('-').join(''));
+    let sumOfDigits = 0;
+
+    while (birthday) {
+      sumOfDigits += birthday % 10;
+      birthday = Math.floor(birthday / 10);
+    }
+
+    if (sumOfDigits % luckyNumber === 0) {
+      SetMessage('🥳🥳 Wohoo!! Your birthday is lucky');
+      SetStatus(true);
+    } else {
+      SetMessage('🥺🥺 Seems like your birthday is not that lucky');
+      SetStatus(false);
+    }
+  };
 
   return (
     <div className="mt-10">
@@ -37,13 +57,18 @@ const InputField = () => {
       </div>
 
       <button
-        onClick={() => {
-          console.log(typeof date, number);
-        }}
+        onClick={() => checkLucky(date, number)}
         className="mt-4 border border-purple-500 px-5 py-2 rounded-md cursor-pointer hover:text-white hover:bg-purple-500"
       >
         Check
       </button>
+      <div
+        className={`text-2xl mt-3 ${
+          status ? `text-green-500` : `text-red-500`
+        }`}
+      >
+        {message && message}
+      </div>
     </div>
   );
 };
