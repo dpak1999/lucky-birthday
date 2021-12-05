@@ -27,7 +27,7 @@ const InputField = () => {
   };
 
   return (
-    <div className="mt-10">
+    <div className="mt-6">
       <div>
         <label htmlFor="date" className="text-xl font-mono">
           Choose your birthdate
